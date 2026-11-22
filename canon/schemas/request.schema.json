@@ -12,7 +12,7 @@
     "id": { "type": "string", "pattern": "^[A-Z][0-9]{3,4}$" },
     "date": { "type": "string", "format": "date-time" },
     "type": { "enum": ["initiative", "feature", "slice", "bug", "need"] },
-    "title": { "type": "string", "minLength": 1 },
+    "title": { "type": "string", "pattern": "[^\\s\u000b\ufeff\u00a0\u1680\u2000-\u200a\u2028\u2029\u202f\u205f\u3000]" },
     "parent": { "type": ["string", "null"], "pattern": "^[A-Z][0-9]{3,4}$" },
     "raw_prompts": {
       "type": "array",
@@ -22,13 +22,13 @@
         "required": ["date", "text"],
         "properties": {
           "date": { "type": "string", "format": "date-time" },
-          "text": { "type": "string" }
+          "text": { "type": "string", "pattern": "[^\\s\u000b\ufeff\u00a0\u1680\u2000-\u200a\u2028\u2029\u202f\u205f\u3000]" }
         }
       }
     },
-    "scenario": { "type": "string" },
-    "acceptance": { "type": "string" },
-    "decisions": { "type": "array", "items": { "type": "string" } },
+    "scenario": { "type": "string", "pattern": "[^\\s\u000b\ufeff\u00a0\u1680\u2000-\u200a\u2028\u2029\u202f\u205f\u3000]" },
+    "acceptance": { "type": "string", "pattern": "[^\\s\u000b\ufeff\u00a0\u1680\u2000-\u200a\u2028\u2029\u202f\u205f\u3000]" },
+    "decisions": { "type": "array", "items": { "type": "string", "pattern": "[^\\s\u000b\ufeff\u00a0\u1680\u2000-\u200a\u2028\u2029\u202f\u205f\u3000]" } },
     "details": {
       "type": "object",
       "description": "Free object, specific to the item.",
@@ -41,12 +41,12 @@
             "required": ["id", "reason"],
             "properties": {
               "id": { "type": "string", "pattern": "^[A-Z][0-9]{3}$" },
-              "reason": { "type": "string", "minLength": 1 }
+              "reason": { "type": "string", "pattern": "[^\\s\u000b\ufeff\u00a0\u1680\u2000-\u200a\u2028\u2029\u202f\u205f\u3000]" }
             }
           }
         }
       }
     },
-    "out_of_scope": { "type": "array", "items": { "type": "string" } }
+    "out_of_scope": { "type": "array", "items": { "type": "string", "pattern": "[^\\s\u000b\ufeff\u00a0\u1680\u2000-\u200a\u2028\u2029\u202f\u205f\u3000]" } }
   }
 }

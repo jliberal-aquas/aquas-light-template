@@ -6,7 +6,7 @@
   "additionalProperties": false,
   "required": ["conclusion", "findings", "evidence", "pending", "certainty", "checklist"],
   "properties": {
-    "conclusion": { "type": "string", "minLength": 1 },
+    "conclusion": { "type": "string", "pattern": "[^\\s\u000b\ufeff\u00a0\u1680\u2000-\u200a\u2028\u2029\u202f\u205f\u3000]" },
     "findings": {
       "type": "array",
       "items": {
@@ -14,9 +14,9 @@
         "additionalProperties": false,
         "required": ["what", "where", "why", "certainty", "severity"],
         "properties": {
-          "what": { "type": "string" },
-          "where": { "type": "string" },
-          "why": { "type": "string" },
+          "what": { "type": "string", "pattern": "[^\\s\u000b\ufeff\u00a0\u1680\u2000-\u200a\u2028\u2029\u202f\u205f\u3000]" },
+          "where": { "type": "string", "pattern": "[^\\s\u000b\ufeff\u00a0\u1680\u2000-\u200a\u2028\u2029\u202f\u205f\u3000]" },
+          "why": { "type": "string", "pattern": "[^\\s\u000b\ufeff\u00a0\u1680\u2000-\u200a\u2028\u2029\u202f\u205f\u3000]" },
           "certainty": { "$ref": "#/$defs/certainty" },
           "severity": { "enum": ["blocker", "major", "minor"] }
         }
@@ -29,14 +29,14 @@
         "additionalProperties": false,
         "required": ["file", "line", "quote"],
         "properties": {
-          "file": { "type": "string", "minLength": 1 },
+          "file": { "type": "string", "pattern": "[^\\s\u000b\ufeff\u00a0\u1680\u2000-\u200a\u2028\u2029\u202f\u205f\u3000]" },
           "line": { "type": "integer", "minimum": 1 },
-          "quote": { "type": "string" }
+          "quote": { "type": "string", "pattern": "[^\\s\u000b\ufeff\u00a0\u1680\u2000-\u200a\u2028\u2029\u202f\u205f\u3000]" }
         }
       }
     },
     "output": { "type": "object", "description": "Optional deliverable of the task; free shape." },
-    "pending": { "type": "array", "items": { "type": "string" } },
+    "pending": { "type": "array", "items": { "type": "string", "pattern": "[^\\s\u000b\ufeff\u00a0\u1680\u2000-\u200a\u2028\u2029\u202f\u205f\u3000]" } },
     "certainty": { "$ref": "#/$defs/certainty" },
     "checklist": {
       "type": "array",
@@ -45,9 +45,9 @@
         "additionalProperties": false,
         "required": ["id", "status", "evidence"],
         "properties": {
-          "id": { "type": "string", "minLength": 1 },
+          "id": { "type": "string", "pattern": "[^\\s\u000b\ufeff\u00a0\u1680\u2000-\u200a\u2028\u2029\u202f\u205f\u3000]" },
           "status": { "enum": ["done", "not_applicable"] },
-          "evidence": { "type": "string", "minLength": 1 }
+          "evidence": { "type": "string", "pattern": "[^\\s\u000b\ufeff\u00a0\u1680\u2000-\u200a\u2028\u2029\u202f\u205f\u3000]" }
         }
       }
     }

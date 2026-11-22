@@ -15,9 +15,9 @@
         "required": ["id", "purpose", "provider", "model", "effort"],
         "properties": {
           "id": { "type": "string", "pattern": "^[a-z]+$" },
-          "purpose": { "type": "string", "minLength": 1 },
-          "provider": { "type": "string", "minLength": 1 },
-          "model": { "type": "string", "minLength": 1 },
+          "purpose": { "type": "string", "pattern": "[^\\s\u000b\ufeff\u00a0\u1680\u2000-\u200a\u2028\u2029\u202f\u205f\u3000]" },
+          "provider": { "type": "string", "pattern": "[^\\s\u000b\ufeff\u00a0\u1680\u2000-\u200a\u2028\u2029\u202f\u205f\u3000]" },
+          "model": { "type": "string", "pattern": "[^\\s\u000b\ufeff\u00a0\u1680\u2000-\u200a\u2028\u2029\u202f\u205f\u3000]" },
           "effort": { "enum": ["low", "medium", "high"] }
         }
       }

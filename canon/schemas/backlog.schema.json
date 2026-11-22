@@ -23,8 +23,8 @@
       "required": ["id", "name", "page"],
       "properties": {
         "id": { "type": "string", "pattern": "^C[0-9]{3}$" },
-        "name": { "type": "string", "minLength": 1 },
-        "page": { "type": "string", "minLength": 1 }
+        "name": { "type": "string", "pattern": "[^\\s\u000b\ufeff\u00a0\u1680\u2000-\u200a\u2028\u2029\u202f\u205f\u3000]" },
+        "page": { "type": "string", "pattern": "[^\\s\u000b\ufeff\u00a0\u1680\u2000-\u200a\u2028\u2029\u202f\u205f\u3000]" }
       }
     },
     "item": {
@@ -37,7 +37,7 @@
       "properties": {
         "id": { "type": "string", "pattern": "^[A-Z][0-9]{3}$" },
         "type": { "enum": ["initiative", "feature", "slice", "bug", "need"] },
-        "title": { "type": "string", "minLength": 1 },
+        "title": { "type": "string", "pattern": "[^\\s\u000b\ufeff\u00a0\u1680\u2000-\u200a\u2028\u2029\u202f\u205f\u3000]" },
         "state": { "enum": ["to_define", "ready", "in_progress", "standby", "cancelled", "done"] },
         "rank": { "type": "integer", "minimum": 1 },
         "parent": { "type": ["string", "null"], "pattern": "^[A-Z][0-9]{3}$" },
@@ -45,8 +45,8 @@
           "type": "array",
           "items": { "type": "string", "pattern": "^[A-Z][0-9]{3}$" }
         },
-        "spec": { "type": "string", "minLength": 1 },
-        "acceptance": { "type": "string", "minLength": 1 },
+        "spec": { "type": "string", "pattern": "[^\\s\u000b\ufeff\u00a0\u1680\u2000-\u200a\u2028\u2029\u202f\u205f\u3000]" },
+        "acceptance": { "type": "string", "pattern": "[^\\s\u000b\ufeff\u00a0\u1680\u2000-\u200a\u2028\u2029\u202f\u205f\u3000]" },
         "created_at": { "type": "string", "format": "date-time" },
         "updated_at": { "type": "string", "format": "date-time" },
         "state_changed_at": { "type": "string", "format": "date-time" },
@@ -56,10 +56,10 @@
           "type": "array",
           "items": { "type": "string", "pattern": "^C[0-9]{3}$" }
         },
-        "adr": { "type": "string", "minLength": 1 },
+        "adr": { "type": "string", "pattern": "[^\\s\u000b\ufeff\u00a0\u1680\u2000-\u200a\u2028\u2029\u202f\u205f\u3000]" },
         "evidence": {
           "type": "array",
-          "items": { "type": "string", "minLength": 1 }
+          "items": { "type": "string", "pattern": "[^\\s\u000b\ufeff\u00a0\u1680\u2000-\u200a\u2028\u2029\u202f\u205f\u3000]" }
         }
       },
       "allOf": [

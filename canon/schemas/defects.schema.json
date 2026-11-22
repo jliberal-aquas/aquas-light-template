@@ -15,11 +15,11 @@
         "properties": {
           "id": { "type": "string", "pattern": "^D[0-9]{4}$" },
           "date": { "type": "string", "format": "date" },
-          "class": { "type": "string", "minLength": 1 },
-          "failure": { "type": "string", "minLength": 1 },
+          "class": { "type": "string", "pattern": "[^\\s\u000b\ufeff\u00a0\u1680\u2000-\u200a\u2028\u2029\u202f\u205f\u3000]" },
+          "failure": { "type": "string", "pattern": "[^\\s\u000b\ufeff\u00a0\u1680\u2000-\u200a\u2028\u2029\u202f\u205f\u3000]" },
           "seen_by": { "enum": ["human", "agent"] },
-          "control": { "type": "string", "minLength": 1 },
-          "test": { "type": "string", "minLength": 1 },
+          "control": { "type": "string", "pattern": "[^\\s\u000b\ufeff\u00a0\u1680\u2000-\u200a\u2028\u2029\u202f\u205f\u3000]" },
+          "test": { "type": "string", "pattern": "[^\\s\u000b\ufeff\u00a0\u1680\u2000-\u200a\u2028\u2029\u202f\u205f\u3000]" },
           "state": { "enum": ["proposed", "implemented", "tested"] }
         }
       }

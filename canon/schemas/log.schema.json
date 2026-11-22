@@ -9,7 +9,7 @@
     "at": { "type": "string", "format": "date-time" },
     "item": { "type": "string", "pattern": "^[A-Z][0-9]{3,4}$" },
     "phase": { "enum": ["red", "green", "qa_green", "qa_red", "integration"] },
-    "command": { "type": "string", "minLength": 1 },
+    "command": { "type": "string", "pattern": "[^\\s\u000b\ufeff\u00a0\u1680\u2000-\u200a\u2028\u2029\u202f\u205f\u3000]" },
     "exit_code": { "type": "integer" },
     "output": { "type": "string" }
   }

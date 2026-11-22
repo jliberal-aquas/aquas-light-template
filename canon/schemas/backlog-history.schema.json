@@ -15,6 +15,6 @@
     },
     "from_state": { "enum": ["to_define", "ready", "in_progress", "standby", "cancelled", "done", null] },
     "to_state": { "enum": ["to_define", "ready", "in_progress", "standby", "cancelled", "done", null] },
-    "reason": { "type": "string", "minLength": 1 }
+    "reason": { "type": "string", "pattern": "[^\\s\u000b\ufeff\u00a0\u1680\u2000-\u200a\u2028\u2029\u202f\u205f\u3000]" }
   }
 }

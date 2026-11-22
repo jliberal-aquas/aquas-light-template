@@ -6,14 +6,21 @@
   "additionalProperties": false,
   "required": ["how_it_works", "turn_end", "slice_end", "feature_end", "subagent_return"],
   "properties": {
-    "how_it_works": { "type": "string", "minLength": 1 },
+    "how_it_works": { "type": "string", "pattern": "[^\\s\u000b\ufeff\u00a0\u1680\u2000-\u200a\u2028\u2029\u202f\u205f\u3000]" },
     "turn_end": { "$ref": "#/$defs/rules" },
     "slice_end": { "$ref": "#/$defs/rules" },
     "feature_end": { "$ref": "#/$defs/rules" },
     "subagent_return": {
       "type": "object",
       "description": "Rules per role id.",
-      "patternProperties": { "^[a-z]+$": { "$ref": "#/$defs/rules" } },
+      "required": ["reader", "implementer", "qa", "architect", "auditor"],
+      "properties": {
+        "reader": { "$ref": "#/$defs/rules" },
+        "implementer": { "$ref": "#/$defs/rules" },
+        "qa": { "$ref": "#/$defs/rules" },
+        "architect": { "$ref": "#/$defs/rules" },
+        "auditor": { "$ref": "#/$defs/rules" }
+      },
       "additionalProperties": false
     }
   },
@@ -27,7 +34,7 @@
         "required": ["id", "check"],
         "properties": {
           "id": { "type": "string", "pattern": "^[a-z][a-z0-9_]*$" },
-          "check": { "type": "string", "minLength": 1 }
+          "check": { "type": "string", "pattern": "[^\\s\u000b\ufeff\u00a0\u1680\u2000-\u200a\u2028\u2029\u202f\u205f\u3000]" }
         }
       }
     }

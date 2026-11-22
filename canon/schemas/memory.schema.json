@@ -7,10 +7,10 @@
   "required": ["item_id", "step", "done", "next", "files", "blocked_on"],
   "properties": {
     "item_id": { "type": ["string", "null"], "pattern": "^[A-Z][0-9]{3}$" },
-    "step": { "type": "string" },
-    "done": { "type": "array", "items": { "type": "string" } },
-    "next": { "type": "string" },
-    "files": { "type": "array", "items": { "type": "string" } },
-    "blocked_on": { "type": ["string", "null"] }
+    "step": { "type": "string", "pattern": "[^\\s\u000b\ufeff\u00a0\u1680\u2000-\u200a\u2028\u2029\u202f\u205f\u3000]" },
+    "done": { "type": "array", "items": { "type": "string", "pattern": "[^\\s\u000b\ufeff\u00a0\u1680\u2000-\u200a\u2028\u2029\u202f\u205f\u3000]" } },
+    "next": { "type": "string", "pattern": "[^\\s\u000b\ufeff\u00a0\u1680\u2000-\u200a\u2028\u2029\u202f\u205f\u3000]" },
+    "files": { "type": "array", "items": { "type": "string", "pattern": "[^\\s\u000b\ufeff\u00a0\u1680\u2000-\u200a\u2028\u2029\u202f\u205f\u3000]" } },
+    "blocked_on": { "type": ["string", "null"], "pattern": "[^\\s\u000b\ufeff\u00a0\u1680\u2000-\u200a\u2028\u2029\u202f\u205f\u3000]" }
   }
 }
