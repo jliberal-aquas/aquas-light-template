@@ -7,7 +7,7 @@
     },
     {
       "id": "closing_board",
-      "check": "El mensaje cierra con el tablero de diez campos."
+      "check": "El mensaje final del turno, el que devuelve el control al humano, cierra con el tablero de diez campos una sola vez; los avances intermedios tras cada subagente no lo llevan."
     },
     {
       "id": "evidence_shown",
