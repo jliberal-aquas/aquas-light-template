@@ -5,7 +5,7 @@ Gobierno centralizado de la metodología Aquas Driven Development en su versión
 ## Composición del trabajo
 
 **Iniciativa** (`initiative`):
-Objetivo de negocio que agrupa una o más features. Toda necesidad aprobada pertenece a una iniciativa.
+Objetivo de negocio que agrupa una o más features. Una necesidad refinada se convierte en iniciativa o se suma a una existente.
 _Avoid_: épica, proyecto
 
 **Feature** (`feature`):
@@ -31,6 +31,10 @@ _Avoid_: idea, pendiente, inbox
 **Spec** (`work/requests/<id>.json`):
 Archivo con todo el detalle de un ítem: prompt crudo, escenario refinado, aceptación, pruebas y diagrama de flujo. El backlog guarda su ruta y solo se lee cuando le toca a ese ítem.
 _Avoid_: ficha, ticket
+
+**Árbol de pruebas** (`test tree`):
+Las pruebas siguen la jerarquía: bug (regresión), slice (unitarias), feature (integral de sus slices) e iniciativa (integral de sus features). Cada nivel prueba la combinación del nivel de abajo.
+_Avoid_: pirámide de pruebas, suite
 
 **Backlog** (`backlog.json`):
 Lista priorizada de lo pendiente. Solo contiene trabajo vivo; lo cerrado se muda al archivo. Cada slice referencia su feature e iniciativa; cada bug referencia su slice.

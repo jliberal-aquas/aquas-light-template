@@ -36,7 +36,6 @@ Antes de actuar, clasifica cada mensaje del humano: comentario, pregunta, respue
 
 ## Bugs y cambios de alcance
 
-- Cerrar un bug exige volver a correr en verde las pruebas integrales de la feature de su slice.
 - Un cambio de alcance reabre la aceptación de la feature y vuelve a pasar por el auditor.
 - Las páginas de capacidad describen solo el presente y no mencionan IDs de ítems; el porqué de cada cambio vive en los ADR.
 
@@ -46,7 +45,13 @@ Antes de actuar, clasifica cada mensaje del humano: comentario, pregunta, respue
 
 ## Dependencias e iniciativa
 
-- Cada feature se prueba sola, con las pruebas integrales de sus slices. La iniciativa lleva la prueba integral que junta todas sus features.
+- Las pruebas forman un árbol y cada nivel prueba solo lo que el nivel de abajo no puede ver:
+  - Bug: su prueba de regresión, que falla antes del arreglo y pasa después.
+  - Slice: sus pruebas unitarias, que incluyen las de regresión de sus bugs.
+  - Feature: sus pruebas integrales, de punta a punta, que comprueban que sus slices combinan bien.
+  - Iniciativa: su prueba integral, de punta a punta, que comprueba que sus features combinan bien.
+  - Ej.: en una API, la feature «usuarios» prueba crear, leer y modificar juntos; la iniciativa prueba usuarios con roles.
+- Al cerrar un bug se corren hacia arriba: su prueba, las del slice, las integrales de la feature y, si la feature ya cerró, la de la iniciativa.
 - Cada feature lista en su spec (`details.dependencies`) las features de las que depende y por qué; el análisis de impacto las lee de ahí.
 - Lo terminado sigue en el backlog hasta cerrar su feature; al cerrarla, la feature y sus slices se mudan juntos a `archive/<iniciativa>.json`. Un id archivado sigue siendo dependencia válida.
 
