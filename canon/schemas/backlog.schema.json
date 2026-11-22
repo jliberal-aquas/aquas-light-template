@@ -1,0 +1,87 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "backlog",
+  "description": "Backlog of the product; also validates archive/*.json.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["version", "capabilities", "items"],
+  "properties": {
+    "version": { "const": 1 },
+    "capabilities": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/capability" }
+    },
+    "items": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/item" }
+    }
+  },
+  "$defs": {
+    "capability": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "name", "page"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^C[0-9]{3}$" },
+        "name": { "type": "string", "minLength": 1 },
+        "page": { "type": "string", "minLength": 1 }
+      }
+    },
+    "item": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id", "type", "title", "state", "rank", "parent", "depends_on", "spec",
+        "created_at", "updated_at", "state_changed_at", "closed_at"
+      ],
+      "properties": {
+        "id": { "type": "string", "pattern": "^[A-Z][0-9]{3}$" },
+        "type": { "enum": ["initiative", "feature", "slice", "bug", "need"] },
+        "title": { "type": "string", "minLength": 1 },
+        "state": { "enum": ["to_define", "ready", "in_progress", "standby", "cancelled", "done"] },
+        "rank": { "type": "integer", "minimum": 1 },
+        "parent": { "type": ["string", "null"], "pattern": "^[A-Z][0-9]{3}$" },
+        "depends_on": {
+          "type": "array",
+          "items": { "type": "string", "pattern": "^[A-Z][0-9]{3}$" }
+        },
+        "spec": { "type": "string", "minLength": 1 },
+        "acceptance": { "type": "string", "minLength": 1 },
+        "created_at": { "type": "string", "format": "date-time" },
+        "updated_at": { "type": "string", "format": "date-time" },
+        "state_changed_at": { "type": "string", "format": "date-time" },
+        "closed_at": { "type": ["string", "null"], "format": "date-time" },
+        "doc_impact": { "enum": ["none", "capability", "decision"] },
+        "capabilities": {
+          "type": "array",
+          "items": { "type": "string", "pattern": "^C[0-9]{3}$" }
+        },
+        "adr": { "type": "string", "minLength": 1 },
+        "evidence": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 }
+        }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "type": { "enum": ["initiative", "need"] } }, "required": ["type"] },
+          "then": { "properties": { "parent": { "type": "null" } } }
+        },
+        {
+          "if": { "properties": { "type": { "enum": ["feature", "slice", "bug"] } }, "required": ["type"] },
+          "then": { "properties": { "parent": { "type": "string" } } }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": { "const": "feature" },
+              "state": { "not": { "const": "to_define" } }
+            },
+            "required": ["type", "state"]
+          },
+          "then": { "required": ["acceptance"] }
+        }
+      ]
+    }
+  }
+}

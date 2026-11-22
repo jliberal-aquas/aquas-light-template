@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "memory",
+  "description": "Working memory handed between turns.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["item_id", "step", "done", "next", "files", "blocked_on"],
+  "properties": {
+    "item_id": { "type": ["string", "null"], "pattern": "^[A-Z][0-9]{3}$" },
+    "step": { "type": "string" },
+    "done": { "type": "array", "items": { "type": "string" } },
+    "next": { "type": "string" },
+    "files": { "type": "array", "items": { "type": "string" } },
+    "blocked_on": { "type": ["string", "null"] }
+  }
+}

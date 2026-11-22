@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "request",
+  "description": "Common shape of every spec (R, I, F, S, B, N).",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id", "date", "type", "title", "parent", "raw_prompts", "scenario",
+    "acceptance", "decisions", "details", "out_of_scope"
+  ],
+  "properties": {
+    "id": { "type": "string", "pattern": "^[A-Z][0-9]{3,4}$" },
+    "date": { "type": "string", "format": "date-time" },
+    "type": { "enum": ["initiative", "feature", "slice", "bug", "need"] },
+    "title": { "type": "string", "minLength": 1 },
+    "parent": { "type": ["string", "null"], "pattern": "^[A-Z][0-9]{3,4}$" },
+    "raw_prompts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["date", "text"],
+        "properties": {
+          "date": { "type": "string", "format": "date-time" },
+          "text": { "type": "string" }
+        }
+      }
+    },
+    "scenario": { "type": "string" },
+    "acceptance": { "type": "string" },
+    "decisions": { "type": "array", "items": { "type": "string" } },
+    "details": {
+      "type": "object",
+      "description": "Free object, specific to the item.",
+      "properties": {
+        "dependencies": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["id", "reason"],
+            "properties": {
+              "id": { "type": "string", "pattern": "^[A-Z][0-9]{3}$" },
+              "reason": { "type": "string", "minLength": 1 }
+            }
+          }
+        }
+      }
+    },
+    "out_of_scope": { "type": "array", "items": { "type": "string" } }
+  }
+}
