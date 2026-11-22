@@ -37,7 +37,7 @@ Las pruebas siguen la jerarquía: bug (regresión), slice (unitarias), feature (
 _Avoid_: pirámide de pruebas, suite
 
 **Backlog** (`backlog.json`):
-Lista priorizada del trabajo vivo. Lo terminado sigue ahí hasta que se cierra su feature; entonces la feature y sus slices se mudan al archivo. Cada slice referencia su feature e iniciativa; cada bug referencia su slice.
+Lista priorizada del trabajo vivo: una línea por ítem. Al pasar a `done` o `cancelled`, la línea se muda al archivo. Cada slice referencia su feature e iniciativa; cada bug referencia su slice.
 _Avoid_: tablero, lista de tareas, inbox
 
 **Banda** (`band`):
@@ -48,7 +48,7 @@ _Avoid_: nivel, categoría
 Posición de un ítem entre sus hermanos del mismo padre; bugs y necesidades, sin padre, la llevan dentro de su banda. Lo recalcula `backlog sort` y lo cambia `backlog move`; el ID nunca cambia.
 _Avoid_: prioridad (en el backlog), orden
 
-**Archivo** (`archive/`):
+**Archivo** (`archive.json`):
 Histórico de lo cerrado. No entra en contexto salvo para auditoría.
 _Avoid_: histórico vivo
 

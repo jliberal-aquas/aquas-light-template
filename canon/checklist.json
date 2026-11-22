@@ -10,6 +10,10 @@
       "check": "El mensaje final del turno, el que devuelve el control al humano, cierra con el tablero de diez campos una sola vez; los avances intermedios tras cada subagente no lo llevan."
     },
     {
+      "id": "simplest_scope",
+      "check": "Se hizo exactamente lo pedido y de la forma más simple: ninguna regla, mensaje, bandera, caso ni pregunta sin pedido; lo extra quedó en una línea «Fuera de pedido». Evidencia: lista de lo agregado y la frase del humano que lo pidió."
+    },
+    {
       "id": "evidence_shown",
       "check": "Toda afirmación de terminado muestra la salida del comando que la prueba."
     },
@@ -103,6 +107,10 @@
       {
         "id": "scenario_observed",
         "check": "Comprobó el escenario como lo vería el humano, no solo el código."
+      },
+      {
+        "id": "real_impact_only",
+        "check": "Cada defecto o hueco reportado cambia un comportamiento real frente al spec; los casos borde sin efecto van en una línea «Fuera de pedido», sin proponer reglas nuevas."
       }
     ],
     "architect": [
@@ -135,6 +143,10 @@
       {
         "id": "no_new_controls",
         "check": "No propuso controles sin una falla observada."
+      },
+      {
+        "id": "no_overreach",
+        "check": "Señaló toda regla, mensaje o pieza del spec que nadie pidió y que puede quitarse."
       }
     ]
   },

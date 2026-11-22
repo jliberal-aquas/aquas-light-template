@@ -53,7 +53,7 @@ Antes de actuar, clasifica cada mensaje del humano: comentario, pregunta, respue
   - Ej.: en una API, la feature «usuarios» prueba crear, leer y modificar juntos; la iniciativa prueba usuarios con roles.
 - Al cerrar un bug se corren hacia arriba: su prueba, las del slice, las integrales de la feature y, si la feature ya cerró, la de la iniciativa.
 - Cada feature lista en su spec (`details.dependencies`) las features de las que depende y por qué. La fuente de dependencias es `depends_on`; `aquas-ai backlog impact` la recorre en el backlog y en el archivo.
-- Lo terminado sigue en el backlog hasta cerrar su feature; al cerrarla, la feature y sus slices se mudan juntos a `archive/<iniciativa>.json`. Un id archivado sigue siendo dependencia válida.
+- El backlog solo guarda trabajo vivo. Toda línea que pasa a `done` o `cancelled` se muda tal cual a `product/aquas/archive.json`. Un id archivado sigue siendo dependencia y padre válido.
 
 ## Feature
 
@@ -61,7 +61,7 @@ Antes de actuar, clasifica cada mensaje del humano: comentario, pregunta, respue
 2. Arquitecto: `go vet`, `golangci-lint` (incluye `dupl`), `go fix -diff ./...`, catálogo de `aquas-ai index` contra funciones duplicadas, guías `go-modern-guidelines`. Mientras una herramienta del método no exista, el paso se hace a mano y la excepción queda en la evidencia de la feature con su motivo.
 3. Auditor: auditoría de cierre. También revisó el plan antes de la aprobación del humano.
 4. Actualiza la página de cada capacidad tocada; la wiki nunca se quita.
-5. Muda la feature y sus slices a `archive/<id de iniciativa>.json` con `closed_at` y `evidence`.
+5. Muda la línea de la feature a `archive.json` con `closed_at` y `evidence`, como cualquier ítem cerrado.
 6. Di «Hay N candidatos para retrospectiva» o «Sin candidatos para retrospectiva».
 7. Recomienda `/clear`: una sesión dura una feature.
 
