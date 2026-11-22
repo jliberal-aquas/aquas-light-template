@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "log",
+  "description": "One test run. The file aquas/work/log.jsonl holds one run per line and is validated line by line.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["at", "item", "phase", "command", "exit_code", "output"],
+  "properties": {
+    "at": { "type": "string", "format": "date-time" },
+    "item": { "type": "string", "pattern": "^[A-Z][0-9]{3,4}$" },
+    "phase": { "enum": ["red", "green", "qa_green", "qa_red", "integration"] },
+    "command": { "type": "string", "minLength": 1 },
+    "exit_code": { "type": "integer" },
+    "output": { "type": "string" }
+  }
+}

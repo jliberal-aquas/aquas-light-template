@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "backlog-history",
+  "description": "One backlog event. The file aquas/work/backlog-history.jsonl holds one event per line and is validated line by line.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["at", "action", "ids", "from_state", "to_state", "reason"],
+  "properties": {
+    "at": { "type": "string", "format": "date-time" },
+    "action": { "enum": ["create", "update", "move", "migrate", "schema_change", "archive", "state_change"] },
+    "ids": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string", "pattern": "^[A-Z][0-9]+$", "description": "Loose pattern: the first lines use I1 and F1." }
+    },
+    "from_state": { "enum": ["to_define", "ready", "in_progress", "standby", "cancelled", "done", null] },
+    "to_state": { "enum": ["to_define", "ready", "in_progress", "standby", "cancelled", "done", null] },
+    "reason": { "type": "string", "minLength": 1 }
+  }
+}

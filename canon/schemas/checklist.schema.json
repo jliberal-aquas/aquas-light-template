@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "checklist",
+  "description": "canon/checklist.json: probabilistic rules that must be answered, not coded.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["how_it_works", "turn_end", "slice_end", "feature_end", "subagent_return"],
+  "properties": {
+    "how_it_works": { "type": "string", "minLength": 1 },
+    "turn_end": { "$ref": "#/$defs/rules" },
+    "slice_end": { "$ref": "#/$defs/rules" },
+    "feature_end": { "$ref": "#/$defs/rules" },
+    "subagent_return": {
+      "type": "object",
+      "description": "Rules per role id.",
+      "patternProperties": { "^[a-z]+$": { "$ref": "#/$defs/rules" } },
+      "additionalProperties": false
+    }
+  },
+  "$defs": {
+    "rules": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "check"],
+        "properties": {
+          "id": { "type": "string", "pattern": "^[a-z][a-z0-9_]*$" },
+          "check": { "type": "string", "minLength": 1 }
+        }
+      }
+    }
+  }
+}

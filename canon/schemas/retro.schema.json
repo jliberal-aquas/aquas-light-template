@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "retro",
+  "description": "Retrospective candidates. A candidate moves to the backlog when occurrences >= 2 or blocked_delivery is true.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["candidates"],
+  "properties": {
+    "candidates": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "date", "defect_ids", "class", "proposal", "occurrences", "blocked_delivery", "state"],
+        "properties": {
+          "id": { "type": "string", "pattern": "^C[0-9]{4}$" },
+          "date": { "type": "string", "format": "date" },
+          "defect_ids": { "type": "array", "items": { "type": "string", "pattern": "^D[0-9]{4}$" } },
+          "class": { "type": "string", "minLength": 1 },
+          "proposal": { "type": "string", "minLength": 1 },
+          "occurrences": { "type": "integer", "minimum": 1 },
+          "blocked_delivery": { "type": "boolean" },
+          "state": { "enum": ["observation", "backlog", "rejected"] }
+        },
+        "if": { "properties": { "state": { "const": "backlog" } }, "required": ["state"] },
+        "then": {
+          "anyOf": [
+            { "properties": { "occurrences": { "minimum": 2 } }, "required": ["occurrences"] },
+            { "properties": { "blocked_delivery": { "const": true } }, "required": ["blocked_delivery"] }
+          ]
+        }
+      }
+    }
+  }
+}

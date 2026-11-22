@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "report",
+  "description": "Return of a subagent to the orchestrator. No length limits; a large deliverable goes to disk with its path and sha256.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["conclusion", "findings", "evidence", "pending", "certainty", "checklist"],
+  "properties": {
+    "conclusion": { "type": "string", "minLength": 1 },
+    "findings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["what", "where", "why", "certainty", "severity"],
+        "properties": {
+          "what": { "type": "string" },
+          "where": { "type": "string" },
+          "why": { "type": "string" },
+          "certainty": { "$ref": "#/$defs/certainty" },
+          "severity": { "enum": ["blocker", "major", "minor"] }
+        }
+      }
+    },
+    "evidence": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["file", "line", "quote"],
+        "properties": {
+          "file": { "type": "string", "minLength": 1 },
+          "line": { "type": "integer", "minimum": 1 },
+          "quote": { "type": "string" }
+        }
+      }
+    },
+    "output": { "type": "object", "description": "Optional deliverable of the task; free shape." },
+    "pending": { "type": "array", "items": { "type": "string" } },
+    "certainty": { "$ref": "#/$defs/certainty" },
+    "checklist": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "status", "evidence"],
+        "properties": {
+          "id": { "type": "string", "minLength": 1 },
+          "status": { "enum": ["done", "not_applicable"] },
+          "evidence": { "type": "string", "minLength": 1 }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "certainty": { "enum": ["verified", "inferred", "hypothesis", "unknown"] }
+  }
+}
