@@ -1,58 +1,181 @@
 {
   "how_it_works": "Reglas probabilísticas: no se pueden comprobar con código, solo exigir que se respondan. Al cerrar el turno, el orquestador responde turn_end en product/aquas/work/turn.json; al volver, cada subagente responde la lista de su rol en el campo checklist de su informe. Cada respuesta lleva id, status (done | not_applicable) y evidence (ruta, comando o cita; si es not_applicable, el motivo). El gate (F002) rechaza toda respuesta faltante o sin evidencia y devuelve el trabajo.",
   "turn_end": [
-    {"id": "message_type", "check": "El mensaje abre con su tipo (INFORMACIÓN, HALLAZGO, DECISIÓN, FALLO, TERMINADO)."},
-    {"id": "closing_board", "check": "El mensaje cierra con el tablero de diez campos."},
-    {"id": "evidence_shown", "check": "Toda afirmación de terminado muestra la salida del comando que la prueba."},
-    {"id": "certainty_marked", "check": "Lo no comprobado está marcado como PROBABLE o NO CONFIRMADO."},
-    {"id": "no_invented_values", "check": "Ningún valor sin origen: se preguntó en vez de inventar."},
-    {"id": "request_classified", "check": "Cada parte del mensaje del humano se clasificó y se trató por su tipo."},
-    {"id": "out_of_scope_parked", "check": "Toda necesidad ajena al ítem en curso quedó como to_define, sin trabajarla."},
-    {"id": "batch_delegation", "check": "La lectura y escritura masiva se delegó en lote, sin idas y vueltas de un archivo."},
-    {"id": "memory_updated", "check": "Si hay ítem de trabajo en curso, memory.json refleja el último paso y el siguiente."},
-    {"id": "backlog_sorted", "check": "Si el backlog cambió, se corrió backlog sort."}
+    {
+      "id": "message_type",
+      "check": "El mensaje abre con su tipo (INFORMACIÓN, HALLAZGO, DECISIÓN, FALLO, TERMINADO)."
+    },
+    {
+      "id": "closing_board",
+      "check": "El mensaje cierra con el tablero de diez campos."
+    },
+    {
+      "id": "evidence_shown",
+      "check": "Toda afirmación de terminado muestra la salida del comando que la prueba."
+    },
+    {
+      "id": "certainty_marked",
+      "check": "Lo no comprobado está marcado como PROBABLE o NO CONFIRMADO."
+    },
+    {
+      "id": "impact_sweep",
+      "check": "Si una decisión cambió una forma, un término o una regla, se buscó en ambos repositorios cada archivo que la usa, se actualizó o se listó como pendiente, y se citan las rutas."
+    },
+    {
+      "id": "no_invented_values",
+      "check": "Ningún valor sin origen: se preguntó en vez de inventar."
+    },
+    {
+      "id": "request_classified",
+      "check": "Cada parte del mensaje del humano se clasificó y se trató por su tipo."
+    },
+    {
+      "id": "out_of_scope_parked",
+      "check": "Toda necesidad ajena al ítem en curso quedó como to_define, sin trabajarla."
+    },
+    {
+      "id": "batch_delegation",
+      "check": "La lectura y escritura masiva se delegó en lote, sin idas y vueltas de un archivo."
+    },
+    {
+      "id": "memory_updated",
+      "check": "Si hay ítem de trabajo en curso, memory.json refleja el último paso y el siguiente."
+    },
+    {
+      "id": "backlog_sorted",
+      "check": "Si el backlog cambió, se corrió backlog sort."
+    }
   ],
   "subagent_return": {
     "reader": [
-      {"id": "all_paths_read", "check": "Leyó todas las rutas del encargo o explica cuál faltó."},
-      {"id": "quotes_exact", "check": "Cada cita de evidence es textual y lleva archivo y línea."},
-      {"id": "no_decisions", "check": "No decidió ni recomendó fuera de lo pedido."}
+      {
+        "id": "all_paths_read",
+        "check": "Leyó todas las rutas del encargo o explica cuál faltó."
+      },
+      {
+        "id": "quotes_exact",
+        "check": "Cada cita de evidence es textual y lleva archivo y línea."
+      },
+      {
+        "id": "no_decisions",
+        "check": "No decidió ni recomendó fuera de lo pedido."
+      }
     ],
     "implementer": [
-      {"id": "red_first", "check": "Las pruebas se escribieron y fallaron antes del código; la salida roja está registrada."},
-      {"id": "green_shown", "check": "La salida verde está en output."},
-      {"id": "scope_kept", "check": "Solo tocó los archivos del slice."},
-      {"id": "reuse_checked", "check": "Buscó funciones existentes antes de escribir una nueva."},
-      {"id": "go_modern", "check": "Aplicó las guías go-modern-guidelines y go fix -diff no propone cambios."}
+      {
+        "id": "red_first",
+        "check": "Las pruebas se escribieron y fallaron antes del código; la salida roja está registrada."
+      },
+      {
+        "id": "green_shown",
+        "check": "La salida verde está en output."
+      },
+      {
+        "id": "scope_kept",
+        "check": "Solo tocó los archivos del slice."
+      },
+      {
+        "id": "reuse_checked",
+        "check": "Buscó funciones existentes antes de escribir una nueva."
+      },
+      {
+        "id": "go_modern",
+        "check": "Aplicó las guías go-modern-guidelines y go fix -diff no propone cambios."
+      }
     ],
     "qa": [
-      {"id": "green_confirmed", "check": "Corrió las pruebas en limpio y dieron verde."},
-      {"id": "red_without_code", "check": "Quitó el código del slice y las pruebas fallaron."},
-      {"id": "table_attacks", "check": "Atacó con tablas de muchos valores: límites, vacíos, inválidos y repetidos."},
-      {"id": "scenario_observed", "check": "Comprobó el escenario como lo vería el humano, no solo el código."}
+      {
+        "id": "green_confirmed",
+        "check": "Corrió las pruebas en limpio y dieron verde."
+      },
+      {
+        "id": "red_without_code",
+        "check": "Quitó el código del slice y las pruebas fallaron."
+      },
+      {
+        "id": "table_attacks",
+        "check": "Atacó con tablas de muchos valores: límites, vacíos, inválidos y repetidos."
+      },
+      {
+        "id": "contract_attacks",
+        "check": "Atacó los bordes del contrato del comando: archivo inexistente, JSON mal formado, raíz no encontrada, bandera desconocida y salida vacía."
+      },
+      {
+        "id": "scenario_observed",
+        "check": "Comprobó el escenario como lo vería el humano, no solo el código."
+      }
     ],
     "architect": [
-      {"id": "linters_clean", "check": "go vet, golangci-lint y go fix -diff sin hallazgos, o cada hallazgo justificado."},
-      {"id": "no_duplicates", "check": "Comparó el código nuevo con el catálogo de funciones y no hay equivalentes."},
-      {"id": "standards", "check": "Revisó nombres en inglés, errores envueltos y funciones pequeñas."}
+      {
+        "id": "linters_clean",
+        "check": "go vet, golangci-lint y go fix -diff sin hallazgos, o cada hallazgo justificado."
+      },
+      {
+        "id": "no_duplicates",
+        "check": "Comparó el código nuevo con el catálogo de funciones y no hay equivalentes."
+      },
+      {
+        "id": "standards",
+        "check": "Revisó nombres en inglés, errores envueltos y funciones pequeñas."
+      }
     ],
     "auditor": [
-      {"id": "files_not_chat", "check": "Auditó contra archivos, no contra lo dicho en el chat."},
-      {"id": "acceptance_covered", "check": "Cada slice acerca la aceptación y nada de la aceptación queda sin slice."},
-      {"id": "no_new_controls", "check": "No propuso controles sin una falla observada."}
+      {
+        "id": "files_not_chat",
+        "check": "Auditó contra archivos, no contra lo dicho en el chat."
+      },
+      {
+        "id": "acceptance_covered",
+        "check": "Cada slice acerca la aceptación y nada de la aceptación queda sin slice."
+      },
+      {
+        "id": "interfaces_defined",
+        "check": "Toda interfaz que una prueba en rojo necesita (rutas, banderas, códigos de salida, campos) está escrita en el spec."
+      },
+      {
+        "id": "no_new_controls",
+        "check": "No propuso controles sin una falla observada."
+      }
     ]
   },
   "slice_end": [
-    {"id": "red_recorded", "check": "La salida roja de las pruebas quedó en el log antes del código."},
-    {"id": "qa_passed", "check": "El QA confirmó verde, rojo sin el código y ataques de tabla."},
-    {"id": "doc_impact_declared", "check": "El slice declaró doc_impact y, si aplica, reselló páginas o escribió el ADR."},
-    {"id": "docs_line", "check": "El commit trae la línea Docs."}
+    {
+      "id": "red_recorded",
+      "check": "La salida roja de las pruebas quedó en el log antes del código."
+    },
+    {
+      "id": "qa_passed",
+      "check": "El QA confirmó verde, rojo sin el código y ataques de tabla."
+    },
+    {
+      "id": "doc_impact_declared",
+      "check": "El slice declaró doc_impact y, si aplica, reselló páginas o escribió el ADR."
+    },
+    {
+      "id": "docs_line",
+      "check": "El commit trae la línea Docs."
+    }
   ],
   "feature_end": [
-    {"id": "integration_green", "check": "Las pruebas integrales de la feature dieron verde."},
-    {"id": "architect_review", "check": "El arquitecto corrió linters, go fix -diff y la revisión de duplicados."},
-    {"id": "audit_close", "check": "El auditor auditó el cierre."},
-    {"id": "capability_pages", "check": "Se actualizaron y sellaron las páginas de cada capacidad tocada."},
-    {"id": "retro_line", "check": "Se informó el número de candidatos para retrospectiva."}
+    {
+      "id": "integration_green",
+      "check": "Las pruebas integrales de la feature dieron verde."
+    },
+    {
+      "id": "architect_review",
+      "check": "El arquitecto corrió linters, go fix -diff y la revisión de duplicados."
+    },
+    {
+      "id": "audit_close",
+      "check": "El auditor auditó el cierre."
+    },
+    {
+      "id": "capability_pages",
+      "check": "Se actualizaron y sellaron las páginas de cada capacidad tocada."
+    },
+    {
+      "id": "retro_line",
+      "check": "Se informó el número de candidatos para retrospectiva."
+    }
   ]
 }

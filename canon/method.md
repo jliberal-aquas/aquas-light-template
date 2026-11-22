@@ -44,6 +44,12 @@ Antes de actuar, clasifica cada mensaje del humano: comentario, pregunta, respue
 
 - Tres ámbitos que no se mezclan: gobierno (`docs/` del central), producto del central y producto de cada instancia (`product/docs/`). A una instancia solo viajan los controles para documentar, nunca la documentación (ADR 0005).
 
+## Dependencias e iniciativa
+
+- Cada feature se prueba sola, con las pruebas integrales de sus slices. La iniciativa lleva la prueba integral que junta todas sus features.
+- Cada feature lista en su spec (`details.dependencies`) las features de las que depende y por qué; el análisis de impacto las lee de ahí.
+- Lo terminado sigue en el backlog hasta cerrar su feature; al cerrarla, la feature y sus slices se mudan juntos a `archive/<iniciativa>.json`. Un id archivado sigue siendo dependencia válida.
+
 ## Feature
 
 1. Pruebas integrales de punta a punta de la feature.
