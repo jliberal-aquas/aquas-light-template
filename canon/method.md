@@ -13,7 +13,7 @@ Cómo se construye. El qué y el orden están en `product/aquas/backlog.json`.
 
 - Estados: `to_define`, `ready`, `in_progress`, `standby`, `cancelled`, `done`.
 - Solo los ítems de trabajo (slice, bug, necesidad en refinamiento) se ejecutan, y solo uno puede estar en `in_progress`. Iniciativas y features son contenedores. Todo ítem de trabajo termina, pasa a `standby` o se cancela antes de abrir otro.
-- Cada alta o cambio del backlog se reordena con `aquas-ai backlog sort`. Bandas fijas: bugs, luego `to_define`, luego el resto por `rank`; empate, el más antiguo.
+- Cada alta o cambio del backlog se reordena con `aquas-ai backlog sort`. Bandas fijas, por tipo: bugs, luego necesidades (en cualquier estado), luego el árbol de iniciativas, features y slices por `rank`; empate, el más antiguo.
 - `aquas-ai backlog move <id> --before <id> --reason "<por qué>"` mueve solo dentro de su banda y nunca antes de un ítem de su `depends_on`. El agente lo ejecuta solo con el «sí» del humano en el mismo turno.
 
 ## Refinamiento
@@ -52,7 +52,7 @@ Antes de actuar, clasifica cada mensaje del humano: comentario, pregunta, respue
   - Iniciativa: su prueba integral, de punta a punta, que comprueba que sus features combinan bien.
   - Ej.: en una API, la feature «usuarios» prueba crear, leer y modificar juntos; la iniciativa prueba usuarios con roles.
 - Al cerrar un bug se corren hacia arriba: su prueba, las del slice, las integrales de la feature y, si la feature ya cerró, la de la iniciativa.
-- Cada feature lista en su spec (`details.dependencies`) las features de las que depende y por qué; el análisis de impacto las lee de ahí.
+- Cada feature lista en su spec (`details.dependencies`) las features de las que depende y por qué. La fuente de dependencias es `depends_on`; `aquas-ai backlog impact` la recorre en el backlog y en el archivo.
 - Lo terminado sigue en el backlog hasta cerrar su feature; al cerrarla, la feature y sus slices se mudan juntos a `archive/<iniciativa>.json`. Un id archivado sigue siendo dependencia válida.
 
 ## Feature
@@ -61,7 +61,7 @@ Antes de actuar, clasifica cada mensaje del humano: comentario, pregunta, respue
 2. Arquitecto: `go vet`, `golangci-lint` (incluye `dupl`), `go fix -diff ./...`, catálogo de `aquas-ai index` contra funciones duplicadas, guías `go-modern-guidelines`. Mientras una herramienta del método no exista, el paso se hace a mano y la excepción queda en la evidencia de la feature con su motivo.
 3. Auditor: auditoría de cierre. También revisó el plan antes de la aprobación del humano.
 4. Actualiza la página de cada capacidad tocada; la wiki nunca se quita.
-5. Muda la feature al archivo con `closed_at` y `evidence`.
+5. Muda la feature y sus slices a `archive/<id de iniciativa>.json` con `closed_at` y `evidence`.
 6. Di «Hay N candidatos para retrospectiva» o «Sin candidatos para retrospectiva».
 7. Recomienda `/clear`: una sesión dura una feature.
 
