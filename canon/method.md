@@ -7,7 +7,7 @@ Cómo se construye. El qué y el orden están en `product/aquas/backlog.json`.
 - Iniciativa → feature → slice. Cada slice referencia su feature e iniciativa.
 - Un bug referencia el slice que repara.
 - Una necesidad (`need`) está en `to_define`: sin iniciativa, con la ruta a su spec y el prompt crudo.
-- Cada ítem guarda la ruta a su spec en `product/aquas/work/requests/<id>.json`. El spec se lee solo cuando le toca a ese ítem.
+- Cada ítem guarda la ruta a su spec en `product/aquas/work/requests/<id>.json`; los slices comparten el spec de su feature. El spec se lee solo cuando le toca a ese ítem.
 
 ## Estados y orden
 
@@ -32,7 +32,7 @@ Antes de actuar, clasifica cada mensaje del humano: comentario, pregunta, respue
 3. El QA, en contexto limpio: confirma verde, quita el código del slice y confirma rojo, y ataca con pruebas de tabla de muchos valores (límites, inválidos).
 4. Si el QA rompe algo, el slice vuelve al implementador.
 5. Declara `doc_impact` (`none`, `capability` o `decision`); si es `capability`, resella esas páginas en el mismo commit; si es `decision`, escribe el ADR nuevo y marca el anterior como reemplazado.
-6. Commit en el Git del producto con la línea `Docs: revisé=<ruta|nada>; falsa=<sí|no>; promesa=<sí|no>`.
+6. Commit en el Git del producto con la línea `Docs: reviewed=<path|none>; false=<yes|no>; promise=<yes|no>`.
 
 ## Bugs y cambios de alcance
 
