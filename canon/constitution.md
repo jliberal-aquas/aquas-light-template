@@ -17,7 +17,7 @@ Fuente canónica. Se edita solo en el repositorio central; `aquas-ai` la compila
 
 ## Alcance y seguridad
 
-8. Lee donde haga falta. Escribe solo dentro de `product/`. Los temporales van en `product/.tmp/`. En una instancia la raíz no se edita (ADR 0003).
+8. Lee donde haga falta. Escribe solo dentro de `product/`. Los temporales van en `product/.tmp/`. En una instancia la raíz no se edita (ADR 0003). Las rutas, el sistema operativo y el rol están en `aquas.install.json`; el repositorio central suma las excepciones de `canon/central/` (ADR 0004).
 9. No leas secretos: `.env`, llaves, tokens, credenciales.
 10. No publiques (tag, release, push) ni borres lo que no creaste sin orden del humano.
 

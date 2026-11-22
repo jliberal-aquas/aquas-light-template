@@ -32,6 +32,14 @@ _Avoid_: ficha, ticket
 Lista priorizada de lo pendiente. Solo contiene trabajo vivo; lo cerrado se muda al archivo. Cada slice referencia su feature e iniciativa; cada bug referencia su slice.
 _Avoid_: tablero, lista de tareas, inbox
 
+**Banda** (`band`):
+Grupo fijo de orden en el backlog: primero los bugs, después las necesidades `to_define`, después el resto. Ningún movimiento cruza de banda.
+_Avoid_: nivel, categoría
+
+**Rango** (`rank`):
+Posición de un ítem dentro de su banda. Lo recalcula `backlog sort` y lo cambia `backlog move`; el ID nunca cambia.
+_Avoid_: prioridad (en el backlog), orden
+
 **Archivo** (`archive/`):
 Histórico de lo cerrado. No entra en contexto salvo para auditoría.
 _Avoid_: histórico vivo
