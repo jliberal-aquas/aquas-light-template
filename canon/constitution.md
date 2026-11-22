@@ -25,7 +25,7 @@ Fuente canónica. Se edita solo en el repositorio central; `aquas-ai` la compila
 
 11. Háblale al humano según `canon/communication/`.
 12. Código, identificadores, archivos, carpetas y commits en inglés; mensajes y documentación en español venezolano neutro. Identificador es todo nombre que tú elijas: variable, función, tipo, archivo, carpeta, rama, clave de JSON, campo de esquema y valor de una lista cerrada.
-13. Todo archivo de configuración o estado es JSON validado contra su esquema en `canon/schemas/`.
+13. Todo archivo de configuración o estado es JSON validado contra su esquema en `canon/schemas/`. Esa carpeta es la única fuente: el CLI la lee en ejecución desde la raíz que indica `aquas.install.json` y nunca guarda una copia.
 14. Entre agentes no hay prosa: solo contratos de traspaso tipados (ADR 0002).
 
 ## Reglas medibles de mensajes y documentación

@@ -12,8 +12,8 @@ Cómo se construye. El qué y el orden están en `product/aquas/backlog.json`.
 ## Estados y orden
 
 - Estados: `to_define`, `ready`, `in_progress`, `standby`, `cancelled`, `done`.
-- Solo un ítem en `in_progress`. Todo ítem termina, pasa a `standby` o se cancela antes de abrir otro.
-- Cada alta o cambio del backlog se reordena con `aquas-ai backlog sort`. Bandas fijas: bugs, luego `to_define`, luego el resto por `priority`; empate, el más antiguo.
+- Solo los ítems de trabajo (slice, bug, necesidad en refinamiento) se ejecutan, y solo uno puede estar en `in_progress`. Iniciativas y features son contenedores. Todo ítem de trabajo termina, pasa a `standby` o se cancela antes de abrir otro.
+- Cada alta o cambio del backlog se reordena con `aquas-ai backlog sort`. Bandas fijas: bugs, luego `to_define`, luego el resto por `rank`; empate, el más antiguo.
 - `aquas-ai backlog move <id> --before <id> --reason "<por qué>"` mueve solo dentro de su banda y nunca antes de un ítem de su `depends_on`. El agente lo ejecuta solo con el «sí» del humano en el mismo turno.
 
 ## Refinamiento
@@ -31,12 +31,23 @@ Antes de actuar, clasifica cada mensaje del humano: comentario, pregunta, respue
 2. Escribe el código hasta verde.
 3. El QA, en contexto limpio: confirma verde, quita el código del slice y confirma rojo, y ataca con pruebas de tabla de muchos valores (límites, inválidos).
 4. Si el QA rompe algo, el slice vuelve al implementador.
-5. Commit en el Git del producto con la línea `Docs: revisé=<ruta|nada>; falsa=<sí|no>; promesa=<sí|no>`.
+5. Declara `doc_impact` (`none`, `capability` o `decision`); si es `capability`, resella esas páginas en el mismo commit; si es `decision`, escribe el ADR nuevo y marca el anterior como reemplazado.
+6. Commit en el Git del producto con la línea `Docs: revisé=<ruta|nada>; falsa=<sí|no>; promesa=<sí|no>`.
+
+## Bugs y cambios de alcance
+
+- Cerrar un bug exige volver a correr en verde las pruebas integrales de la feature de su slice.
+- Un cambio de alcance reabre la aceptación de la feature y vuelve a pasar por el auditor.
+- Las páginas de capacidad describen solo el presente y no mencionan IDs de ítems; el porqué de cada cambio vive en los ADR.
+
+## Documentación
+
+- Tres ámbitos que no se mezclan: gobierno (`docs/` del central), producto del central y producto de cada instancia (`product/docs/`). A una instancia solo viajan los controles para documentar, nunca la documentación (ADR 0005).
 
 ## Feature
 
 1. Pruebas integrales de punta a punta de la feature.
-2. Arquitecto: `go vet`, `golangci-lint` (incluye `dupl`), `go fix -diff ./...`, catálogo de `aquas-ai index` contra funciones duplicadas, guías `go-modern-guidelines`.
+2. Arquitecto: `go vet`, `golangci-lint` (incluye `dupl`), `go fix -diff ./...`, catálogo de `aquas-ai index` contra funciones duplicadas, guías `go-modern-guidelines`. Mientras una herramienta del método no exista, el paso se hace a mano y la excepción queda en la evidencia de la feature con su motivo.
 3. Auditor: auditoría de cierre. También revisó el plan antes de la aprobación del humano.
 4. Actualiza la página de cada capacidad tocada; la wiki nunca se quita.
 5. Muda la feature al archivo con `closed_at` y `evidence`.

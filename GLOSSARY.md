@@ -12,6 +12,10 @@ _Avoid_: épica, proyecto
 Capacidad entregable dentro de una iniciativa, con una sola línea de aceptación y pruebas integrales propias.
 _Avoid_: funcionalidad, historia
 
+**Ítem de trabajo** (`work item`):
+Lo único ejecutable del backlog: un slice, un bug o una necesidad en refinamiento. Solo uno puede estar en `in_progress`; iniciativas y features son contenedores.
+_Avoid_: tarea, ítem ejecutable
+
 **Slice** (`slice`):
 Unidad mínima completable de trabajo: se define, se prueba en rojo, se implementa, se prueba en verde y se cierra sola.
 _Avoid_: tarea, ticket, «slide»
@@ -37,7 +41,7 @@ Grupo fijo de orden en el backlog: primero los bugs, después las necesidades `t
 _Avoid_: nivel, categoría
 
 **Rango** (`rank`):
-Posición de un ítem dentro de su banda. Lo recalcula `backlog sort` y lo cambia `backlog move`; el ID nunca cambia.
+Posición de un ítem entre sus hermanos del mismo padre; bugs y necesidades, sin padre, la llevan dentro de su banda. Lo recalcula `backlog sort` y lo cambia `backlog move`; el ID nunca cambia.
 _Avoid_: prioridad (en el backlog), orden
 
 **Archivo** (`archive/`):
@@ -73,6 +77,14 @@ _Avoid_: app, proyecto
 **Contrato de traspaso** (`handoff`):
 JSON tipado y validado contra su esquema que un agente envía a otro, y el informe tipado que vuelve. Única forma de comunicación entre agentes.
 _Avoid_: mensaje, prompt al subagente
+
+**Sello de página** (`docs seal`):
+Huella `sha256` de los archivos de código que una página de capacidad describe. Si el código cambia y la página no se vuelve a sellar, `verify` falla. Prueba que la página se revisó, no que dice la verdad.
+_Avoid_: firma, versión de la página
+
+**Impacto en documentación** (`doc_impact`):
+Campo que todo slice, bug o cambio de alcance declara al cerrarse: `none`, `capability` (con las capacidades a resellar) o `decision` (con la ruta del ADR nuevo).
+_Avoid_: nota de cambio
 
 **Memoria caliente** (`work/memory.json`):
 Estado del trabajo en curso para retomarlo tras un corte. Vive mientras dura el ítem activo y luego se archiva.
