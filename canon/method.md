@@ -14,7 +14,7 @@ Cómo se construye. El qué y el orden están en `product/aquas/backlog.json`.
 - Estados: `to_define`, `ready`, `in_progress`, `standby`, `cancelled`, `done`.
 - Solo los ítems de trabajo (slice, bug, necesidad en refinamiento) se ejecutan, y solo uno puede estar en `in_progress`. Iniciativas y features son contenedores. Todo ítem de trabajo termina, pasa a `standby` o se cancela antes de abrir otro.
 - Cada alta o cambio del backlog se reordena con `aquas-ai backlog sort`. Bandas fijas, por tipo: bugs, luego necesidades (en cualquier estado), luego el árbol de iniciativas, features y slices por `rank`; empate, el más antiguo.
-- `aquas-ai backlog move <id> --before <id> --reason "<por qué>"` mueve solo dentro de su banda y nunca antes de un ítem de su `depends_on`. El agente lo ejecuta solo con el «sí» del humano en el mismo turno.
+- `aquas-ai backlog move <id> --before <id> --reason "<por qué>"` mueve solo dentro de su banda, en el árbol solo entre hermanos del mismo padre, y nunca antes de un ítem de su `depends_on`. El agente lo ejecuta solo con el «sí» del humano en el mismo turno.
 
 ## Refinamiento
 
