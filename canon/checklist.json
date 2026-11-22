@@ -1,0 +1,21 @@
+{
+  "turn_end": [
+    {"id": "message_type", "check": "El mensaje abre con su tipo (INFORMACIÓN, HALLAZGO, DECISIÓN, FALLO, TERMINADO)."},
+    {"id": "closing_board", "check": "El mensaje cierra con el tablero de diez campos."},
+    {"id": "evidence_shown", "check": "Toda afirmación de terminado muestra la salida del comando que la prueba."},
+    {"id": "memory_updated", "check": "Si hay ítem en curso, memory.json refleja el último paso y el siguiente."},
+    {"id": "backlog_sorted", "check": "Si el backlog cambió, se corrió backlog sort."}
+  ],
+  "slice_end": [
+    {"id": "red_recorded", "check": "La salida roja de las pruebas quedó en el log antes del código."},
+    {"id": "qa_passed", "check": "El QA confirmó verde, rojo sin el código y ataques de tabla."},
+    {"id": "docs_line", "check": "El commit trae la línea Docs."}
+  ],
+  "feature_end": [
+    {"id": "integration_green", "check": "Las pruebas integrales de la feature dieron verde."},
+    {"id": "architect_review", "check": "El arquitecto corrió linters, go fix -diff y la revisión de duplicados."},
+    {"id": "audit_close", "check": "El auditor auditó el cierre."},
+    {"id": "capability_pages", "check": "Se actualizaron las páginas de cada capacidad tocada."},
+    {"id": "retro_line", "check": "Se informó el número de candidatos para retrospectiva."}
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "roles": [
+    {"id": "orchestrator", "purpose": "Habla con el humano, refina, planifica y delega en lote.", "provider": "anthropic", "model": "claude-opus-5-5", "effort": "medium"},
+    {"id": "reader", "purpose": "Lee archivos, busca y junta evidencia. No decide ni escribe código.", "provider": "anthropic", "model": "claude-haiku-5-5", "effort": "low"},
+    {"id": "implementer", "purpose": "Escribe pruebas en rojo y el código de los slices.", "provider": "anthropic", "model": "claude-sonnet-5-5", "effort": "medium"},
+    {"id": "qa", "purpose": "Prueba adversarial de cada slice: verde, rojo sin el código y tablas de muchos valores.", "provider": "anthropic", "model": "claude-opus-5-5", "effort": "low"},
+    {"id": "architect", "purpose": "Revisa el código al cerrar cada feature: linters, Go moderno y funciones duplicadas.", "provider": "anthropic", "model": "claude-opus-5-5", "effort": "medium"},
+    {"id": "auditor", "purpose": "Revisa el plan de cada feature, audita su cierre y corre la retrospectiva.", "provider": "anthropic", "model": "claude-fable-5-2", "effort": "high"}
+  ]
+}
